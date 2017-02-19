@@ -6,7 +6,7 @@ $rootdir = '../';
 require $rootdir."local/connection.local.php";
 
 $connection = true;
-$unittest = false;
+$unittest = true;
 
 if( $connection ){
 
@@ -22,7 +22,14 @@ if( $connection ){
 	}
 
 
-	mysqli_select_db($conn, $connectionParameters['database']);
+	$selectdb = mysqli_select_db($conn, $connectionParameters['database']);
+
+	if ( $unittest ) {
+		if (!$conn) {
+		    die("Connection failed: " . mysqli_connect_error());
+		}
+		echo "database selected";
+	}
 
 }
 
